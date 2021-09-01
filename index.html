@@ -29,15 +29,6 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap"></noscript>
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8ESYTJP57"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Y8ESYTJP57');
-</script>
   
   
   
@@ -189,8 +180,8 @@
                         <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>（ブランディング）</strong></h6>
                         <p class="mbr-text mbr-fonts-style mt-3 display-7">企業の広報PRなどでも抜群の効果を発揮します。堅苦しい内容をアニメーションなら感覚的に伝えることができます。</p>
                     </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary display-7" target="_blank">Read More
-                            &gt;</a></div>
+                    <div class="mbr-section-btn item-footer mt-2"><button type="button" class="btn item-btn btn-primary display-7" target="_blank" checkout-button-price_1JSNGaKOuUTUlsbJqFSSkNqS>購入
+                            &gt;</button></div>
                 </div>
             </div>
             <div class="item features-image сol-12 col-md-6 col-lg-4">
@@ -587,5 +578,51 @@
      <img src="assets\images\紙飛行機アイコン (2).png" alt="">
 </div>
     <input name="animation" type="hidden">
+
+<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+
+
+<div id="error-message"></div>
+
+<script>
+(function() {
+  var stripe = Stripe('pk_live_51JQBLCKOuUTUlsbJfXPq5YRm4DrNXVWbxiLIZWbC1d0dZeIamwN7miLb4kiPo0Re5KR51QR89yTsiKZ5rxZqjqD200imRgtJ0l');
+
+  var checkoutButton = document.getElementById('checkout-button-price_1JSNGaKOuUTUlsbJqFSSkNqS');
+  checkoutButton.addEventListener('click', function () {
+    /*
+     * When the customer clicks on the button, redirect
+     * them to Checkout.
+     */
+    stripe.redirectToCheckout({
+      lineItems: [{price: 'price_1JSNGaKOuUTUlsbJqFSSkNqS', quantity: 1}],
+      mode: 'subscription',
+      /*
+       * Do not rely on the redirect to the successUrl for fulfilling
+       * purchases, customers may not always reach the success_url after
+       * a successful payment.
+       * Instead use one of the strategies described in
+       * https://stripe.com/docs/payments/checkout/fulfill-orders
+       */
+      successUrl: 'https://twitter.com/MUKIEBI4829/success',
+      cancelUrl: 'https://twitter.com/MUKIEBI4829/canceled',
+    })
+    .then(function (result) {
+      if (result.error) {
+        /*
+         * If `redirectToCheckout` fails due to a browser or network
+         * error, display the localized error message to your customer.
+         */
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+})();
+</script>
+
   </body>
 </html>
